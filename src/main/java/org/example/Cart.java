@@ -12,12 +12,12 @@ public class Cart {
 
     public void addToCart (Product product) {
         listOfProducts.add(product);
-        System.out.println(product.name() + " has been added to the cart.");
+        System.out.println(product.getName() + " has been added to the cart.");
     }
 
     public void removeFromCart (Product product) {
         if (listOfProducts.remove(product)) {
-            System.out.println(product.name() + " has been removed from the cart.");
+            System.out.println(product.getName() + " has been removed from the cart.");
         } else {
             System.out.println("Product not found in the cart.");
         }
@@ -31,9 +31,9 @@ public class Cart {
 
         StringBuilder productsInfo = new StringBuilder();
         for (Product product : listOfProducts) {
-            productsInfo.append("Id: ").append(product.id()).append(", ");
-            productsInfo.append("Name: ").append(product.name()).append(", ");
-            productsInfo.append("Price: ").append(product.price()).append("\n");
+            productsInfo.append("Id: ").append(product.getId()).append(", ");
+            productsInfo.append("Name: ").append(product.getName()).append(", ");
+            productsInfo.append("Price: ").append(product.getPrice()).append("\n");
         }
 
 
@@ -44,9 +44,9 @@ public class Cart {
         listOfProducts.clear();
 
         System.out.println("Order created successfully:");
-        System.out.println("Order ID: " + order.orderId());
-        System.out.println("Products: \n" + order.products());
-        System.out.println("Status: " + order.status());
+        System.out.println("Order ID: " + order.getOrderId());
+        System.out.println("Products: \n" + order.getProducts());
+        System.out.println("Status: " + order.getStatus());
     }
 
     private static int orderIdCounter = 1;
@@ -58,8 +58,8 @@ public class Cart {
 
     public String getOrderStatus(int orderId) {
         for (Order order : orders) {
-            if (order.orderId() == orderId) {
-                return order.status();
+            if (order.getOrderId() == orderId) {
+                return order.getStatus();
             }
         }
         return "Order not found.";

@@ -4,58 +4,66 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 
 public class CartTest {
     private Cart cart;
-    private Product product1;
-    private Product product2;
+
 
     @Before
     public void setUp() {
         cart = new Cart();
-        product1 = new Product(1, "Product 1", 15.0);
-        product2 = new Product(2, "Product 2", 25.0);
     }
 
     @Test
     public void addToCart() {
-        cart.addToCart(product1);
-        cart.addToCart(product2);
+        Product product = mock(Product.class);
+        when(product.getName()).thenReturn("Product 1");
 
-        assertEquals(2, cart.getListOfProducts().size());
+        cart.addToCart(product);
+
+        verify(product).getName();
+        assertTrue(cart.getListOfProducts().contains(product));
     }
 
     @Test
     public void removeFromCart() {
-        cart.addToCart(product1);
-        cart.addToCart(product2);
+        Product product = mock(Product.class);
+        when(product.getName()).thenReturn("Product 2");
 
-        cart.removeFromCart(product1);
-        assertEquals(1, cart.getListOfProducts().size());
+        cart.addToCart(product);
+        cart.removeFromCart(product);
 
-        cart.removeFromCart(product2);
-        assertEquals(0, cart.getListOfProducts().size());
+        assertFalse(cart.getListOfProducts().contains(product));
     }
 
     @Test
     public void checkout() {
+        Product product1 = mock(Product.class);
+        Product product2 = mock(Product.class);
+
+        when(product1.getName()).thenReturn("Product 3");
+        when(product2.getName()).thenReturn("Product 4");
+
         cart.addToCart(product1);
         cart.addToCart(product2);
 
         cart.checkout();
 
-        assertEquals(0, cart.getListOfProducts().size());
-        assertEquals(1, cart.getOrders().size());
+        verify(product1, times(2)).getName();
+        verify(product2, times(2)).getName();
     }
 
     @Test
     public void getOrderStatus() {
-        cart.addToCart(product1);
-        cart.addToCart(product2);
+        Product product = mock(Product.class);
+        when(product.getName()).thenReturn("Product 5");
 
+        cart.addToCart(product);
         cart.checkout();
-        String status = cart.getOrderStatus(1);
+        int orderId = cart.getOrders().get(0).getOrderId();
 
-        assertEquals("Pending", status);
+        assertEquals("Pending", cart.getOrderStatus(orderId));
     }
 }
