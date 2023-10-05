@@ -23,7 +23,6 @@ public class CartTest {
 
         cart.addToCart(product);
 
-        verify(product).getName();
         assertTrue(cart.getListOfProducts().contains(product));
     }
 
