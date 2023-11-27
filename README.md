@@ -1,0 +1,7 @@
+In this project, we focused on implementing a simplified banking system in Java, with a keen emphasis on exception handling. The objectives were to understand the fundamental principles of exception handling in Java, create specialized exception classes to handle specific error scenarios, and use exception propagation effectively.
+
+Key components of the project included the Bank class, responsible for managing a collection of BankAccount objects. The BankAccount class was designed with essential functionalities such as deposit, withdrawal, and methods to retrieve account details. Specialized exception classes, like NegativeAmountException and InsufficientFundsException, were introduced to handle specific error situations gracefully.
+
+Unit tests were implemented using JUnit 5 to validate the functionality of the banking system. Tests covered various scenarios, including depositing positive and negative amounts, withdrawing with sufficient and insufficient funds, creating accounts, finding accounts, and transferring money between accounts.
+
+By completing this project, you gained practical experience in designing and testing a Java application with robust exception handling, reinforcing your understanding of Java programming principles and best practices.
