@@ -1,8 +1,5 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,61 +53,56 @@ public class ECommerceDemo {
     }
 
     public static void main(String[] args) {
-        ECommercePlatform eCommercePlatform = new ECommercePlatform();
 
+        addUserAndProducts();
+        simulateUserInteractions();
+        displayFinalState();
+    }
+
+    private static void addUserAndProducts() {
         User user1 = new User(1, "rock_star");
         User user2 = new User(2, "john_Snow");
+        platform.addUser(user1);
+        platform.addUser(user2);
 
-        eCommercePlatform.addUser(user1);
-        eCommercePlatform.addUser(user2);
-
-        Product product1 = new Product(1, "Laptop", 999.99, 15);
+        Product product1 = new Product(1, "Laptop", 999.99, 10);
         Product product2 = new Product(2, "Smartphone", 499.99, 20);
+        platform.addProduct(product1);
+        platform.addProduct(product2);
+    }
 
-        eCommercePlatform.addProduct(product1);
-        eCommercePlatform.addProduct(product2);
+    private static void simulateUserInteractions() {
+        // Симуляція взаємодії користувачів з кошиком
+        User user1 = platform.getUsers().get(1);
+        user1.addToCart(platform.getAvailableProducts().get(1), 2);
+        user1.addToCart(platform.getAvailableProducts().get(2), 1);
 
-        user1.addToCart(product1, 2);
-        user1.addToCart(product2, 1);
+        User user2 = platform.getUsers().get(2);
+        user2.addToCart(platform.getAvailableProducts().get(1), 1);
+        user2.addToCart(platform.getAvailableProducts().get(2), 3);
 
-        user2.addToCart(product1, 1);
-        user2.addToCart(product2, 3);
+        // Симуляція створення та обробки замовлень
+        platform.createOrder(user1.getId(), user1.getCart());
+        platform.createOrder(user2.getId(), user2.getCart());
+    }
 
-        // Вивід переліку доступних товарів
-        System.out.println("Перелік доступних товарів:");
-        Map<Integer, Product> availableProducts = eCommercePlatform.getAvailableProducts();
-        for (Map.Entry<Integer, Product> entry : availableProducts.entrySet()) {
-            System.out.println(entry.getValue());
+    private static void displayFinalState() {
+        // Виведення кінцевого стану користувачів
+        System.out.println("\nКінцевий стан користувачів:");
+        for (User user : platform.getUsers().values()) {
+            System.out.println(user);
         }
 
-        System.out.println("\nПерелік користувачів:");
-        Map<Integer, User> users = eCommercePlatform.getUsers();
-        for (Map.Entry<Integer, User> entry : users.entrySet()) {
-            System.out.println(entry.getValue());
+        // Виведення кінцевого стану товарів
+        System.out.println("\nКінцевий стан товарів:");
+        for (Product product : platform.getAvailableProducts().values()) {
+            System.out.println(product);
         }
 
-        // Створення та обробка замовлень
-        System.out.println("\nСтворення та обробка замовлень:");
-        Map<Product, Integer> orderDetails1 = new HashMap<>();
-        orderDetails1.put(product1, 2);
-        orderDetails1.put(product2, 1);
-        eCommercePlatform.createOrder(user1.getId(), orderDetails1);
-
-        Map<Product, Integer> orderDetails2 = new HashMap<>();
-        orderDetails2.put(product1, 1);
-        orderDetails2.put(product2, 3);
-        eCommercePlatform.createOrder(user2.getId(), orderDetails2);
-
-        // Вивід переліку замовлень
-        System.out.println("\nПерелік замовлень:");
-        Map<Integer, Order> orders = eCommercePlatform.getOrders();
-        for (Map.Entry<Integer, Order> entry : orders.entrySet()) {
-            System.out.println(entry.getValue());
+        // Виведення кінцевого стану замовлень
+        System.out.println("\nКінцевий стан замовлень:");
+        for (Order order : platform.getOrders().values()) {
+            System.out.println(order);
         }
-
-        displayProductsSortedByName();
-        displayProductsSortedByPrice();
-        displayProductsSortedByStock();
-        filterProductsByStock(5);
     }
 }
