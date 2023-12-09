@@ -1,6 +1,29 @@
 package org.example;
 
-public class Product {
+import java.util.Comparator;
+
+public class Product implements Comparable<Product> {
+    @Override
+    public int compareTo(Product other) {
+        return Double.compare(this.price, other.price);
+    }
+
+    // Клас для сортування за назвою
+    public static class NameComparator implements Comparator<Product> {
+        @Override
+        public int compare(Product p1, Product p2) {
+            return p1.name.compareTo(p2.name);
+        }
+    }
+
+    // Клас для сортування за запасами
+    public static class StockComparator implements Comparator<Product> {
+        @Override
+        public int compare(Product p1, Product p2) {
+            return Integer.compare(p1.stock, p2.stock);
+        }
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
