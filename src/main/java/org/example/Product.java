@@ -1,17 +1,10 @@
 package org.example;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.List;
-
 public class Product {
     private int id;
     private String title;
     private int price;
     private String description;
-
-    @JsonIgnore
-    private List<String> images;
 
     public int getId() {
         return id;
