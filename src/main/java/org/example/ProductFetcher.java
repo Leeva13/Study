@@ -35,18 +35,4 @@ public class ProductFetcher {
             return products;
         }
     }
-
-    public static void main(String[] args) {
-        try {
-            ProductFetcher productFetcher = new ProductFetcher();
-            List<Product> products = productFetcher.fetchProducts();
-
-            for (Product product : products) {
-                System.out.println(product);
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
