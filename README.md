@@ -1,3 +1,3 @@
 LABS:
 
-[Lab_2](Study/tree/Lab_2)
+[Lab_2](Study/Lab_2)
