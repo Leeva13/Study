@@ -2,7 +2,8 @@ LABS:
 
 [Lab_2](https://github.com/Leeva13/Study/tree/Lab_2)
 [Lab_3](https://github.com/Leeva13/Study/tree/Lab_3)
-[Lab_4](https://github.com/Leeva13/Study/tree/Lab_4)
+[Lab4_1](https://github.com/Leeva13/Study/tree/Lab4_1)
+[Lab4_2](https://github.com/Leeva13/Study/tree/Lab4_2)
 [Lab_5](https://github.com/Leeva13/Study/tree/Lab_5)
 [Lab_6](https://github.com/Leeva13/Study/tree/Lab_6)
 [Lab_7](https://github.com/Leeva13/Study/tree/Lab_7)
