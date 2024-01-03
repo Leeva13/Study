@@ -1,5 +1,6 @@
 LABS:
 
+[Lab_1](https://github.com/Leeva13/Study/tree/Lab1)
 [Lab_2](https://github.com/Leeva13/Study/tree/Lab_2)
 [Lab_3](https://github.com/Leeva13/Study/tree/Lab_3)
 [Lab4_1](https://github.com/Leeva13/Study/tree/Lab4_1)
