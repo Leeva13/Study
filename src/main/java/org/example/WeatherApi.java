@@ -18,7 +18,7 @@ public class WeatherApi {
     private List<WeatherData> weatherData;
 
 
-    private static final String API_KEY = API;
+    private static final String API_KEY = "79d4b9ae6442c2c09bfc1a07c3df24c1";
     private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
     public static String getWeatherData(String cityName) throws IOException {
