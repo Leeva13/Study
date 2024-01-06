@@ -11,5 +11,5 @@ LABS:
 [Lab_8](https://github.com/Leeva13/Study/tree/Lab_8)
 [Lab_9](https://github.com/Leeva13/Study/tree/Lab_9)
 
-Updated Labs: 
+Updated Labs:                                                                        
 [Лабораторна Робота 6](https://github.com/Leeva13/Study/tree/Lab_6)
