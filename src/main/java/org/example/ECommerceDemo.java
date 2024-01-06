@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ECommerceDemo {
     private static final ECommercePlatform platform = new ECommercePlatform();
+    private static final ECommercePlatform ePlatform = new ECommercePlatform();
 
     // Функція для відображення відсортованого за назвою списку товарів
     public static void displayProductsSortedByName() {
@@ -13,31 +14,23 @@ public class ECommerceDemo {
         sortedProducts.sort(new Product.NameComparator());
 
         System.out.println("Список товарів, відсортований за назвою:");
-        for (Product product : sortedProducts) {
-            System.out.println(product);
-        }
+        sortedProducts.forEach(System.out::println);
     }
 
     // Функція для відображення відсортованого за ціною списку товарів
     public static void displayProductsSortedByPrice() {
-        List<Product> sortedProducts = new ArrayList<>(platform.getAvailableProducts().values());
-        Collections.sort(sortedProducts);
-
         System.out.println("Список товарів, відсортований за ціною:");
-        for (Product product : sortedProducts) {
-            System.out.println(product);
-        }
+        platform.getAvailableProducts().values().stream()
+                .sorted()
+                .forEach(System.out::println);
     }
 
     // Функція для відображення відсортованого за запасами списку товарів
     public static void displayProductsSortedByStock() {
-        List<Product> sortedProducts = new ArrayList<>(platform.getAvailableProducts().values());
-        sortedProducts.sort(new Product.StockComparator());
-
         System.out.println("Список товарів, відсортований за запасами:");
-        for (Product product : sortedProducts) {
-            System.out.println(product);
-        }
+        platform.getAvailableProducts().values().stream()
+                .sorted(new Product.StockComparator())
+                .forEach(System.out::println);
     }
 
     // Функція для фільтрації товарів за наявністю на складі
@@ -52,13 +45,6 @@ public class ECommerceDemo {
         }
     }
 
-    public static void main(String[] args) {
-
-        addUserAndProducts();
-        simulateUserInteractions();
-        displayFinalState();
-    }
-
     private static void addUserAndProducts() {
         User user1 = new User(1, "rock_star");
         User user2 = new User(2, "john_Snow");
@@ -69,21 +55,6 @@ public class ECommerceDemo {
         Product product2 = new Product(2, "Smartphone", 499.99, 20);
         platform.addProduct(product1);
         platform.addProduct(product2);
-    }
-
-    private static void simulateUserInteractions() {
-        // Симуляція взаємодії користувачів з кошиком
-        User user1 = platform.getUsers().get(1);
-        user1.addToCart(platform.getAvailableProducts().get(1), 2);
-        user1.addToCart(platform.getAvailableProducts().get(2), 1);
-
-        User user2 = platform.getUsers().get(2);
-        user2.addToCart(platform.getAvailableProducts().get(1), 1);
-        user2.addToCart(platform.getAvailableProducts().get(2), 3);
-
-        // Симуляція створення та обробки замовлень
-        platform.createOrder(user1.getId(), user1.getCart());
-        platform.createOrder(user2.getId(), user2.getCart());
     }
 
     private static void displayFinalState() {
@@ -104,5 +75,57 @@ public class ECommerceDemo {
         for (Order order : platform.getOrders().values()) {
             System.out.println(order);
         }
+    }
+
+    public static void displayRecommendationsForUser(User user) {
+        System.out.println("\nРекомендації для користувача " + user.getUsername() + ":");
+        ePlatform.recommendProductsBasedOnCart(user);
+    }
+
+    private static void simulateUserInteractions() {
+        // Симуляція взаємодії користувачів з кошиком
+        User user1 = platform.getUsers().get(1);
+        user1.addToCart(platform.getAvailableProducts().get(1), 2);
+        user1.addToCart(platform.getAvailableProducts().get(2), 1);
+
+        User user2 = platform.getUsers().get(2);
+        user2.addToCart(platform.getAvailableProducts().get(1), 1);
+        user2.addToCart(platform.getAvailableProducts().get(2), 3);
+
+        // Симуляція створення та обробки замовлень
+        platform.createOrder(user1.getId(), user1.getCart());
+        platform.createOrder(user2.getId(), user2.getCart());
+
+        // Додаткові демонстрації
+
+        // Додавання нових товарів і користувачів
+        User user3 = new User(3, "Mary-Van");
+        platform.addUser(user3);
+
+        Product product3 = new Product(3, "Headphones", 79.99, 15);
+        platform.addProduct(product3);
+
+        // Оновлення кошика користувача
+        User user4 = platform.getUsers().get(1);
+        user1.modifyCart(platform.getAvailableProducts().get(1), 3);
+
+        // Створення нового замовлення
+        platform.createOrder(user3.getId(), user3.getCart());
+
+        // Рекомендації товарів на основі кошика користувача
+        ePlatform.recommendProductsBasedOnCart(user4);
+    }
+
+    public static void main(String[] args) {
+        addUserAndProducts();
+        simulateUserInteractions();
+        displayFinalState();
+
+        displayProductsSortedByName();
+        displayProductsSortedByPrice();
+        displayProductsSortedByStock();
+        filterProductsByStock(15);
+
+        displayFinalState();
     }
 }

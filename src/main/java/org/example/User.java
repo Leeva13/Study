@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class User {
@@ -40,6 +42,10 @@ public class User {
     }
 
     public void addToCart(Product product, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Кількість товару повинна бути більше 0.");
+        }
+
         if (cart.containsKey(product)) {
             cart.put(product, cart.get(product) + quantity);
         } else {
@@ -48,23 +54,40 @@ public class User {
     }
 
     public void removeFromCart(Product product, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Кількість товару для видалення повинна бути більше 0.");
+        }
+
         if (cart.containsKey(product)) {
             int currentQuantity = cart.get(product);
-            if (currentQuantity <= quantity) {
+            if (quantity >= currentQuantity) {
                 cart.remove(product);
             } else {
                 cart.put(product, currentQuantity - quantity);
             }
+        } else {
+            throw new IllegalArgumentException("Товар відсутній в кошику.");
         }
     }
 
     public void modifyCart(Product product, int newQuantity) {
-        if (cart.containsKey(product)) {
-            if (newQuantity > 0) {
-                cart.put(product, newQuantity);
-            } else {
-                cart.remove(product);
-            }
+        if (newQuantity > 0) {
+            cart.put(product, newQuantity);
+        } else {
+            removeFromCart(product, cart.getOrDefault(product, 0));
         }
     }
+
+    public List<Product> getProductsInCart() {
+        List<Product> productsInCart = new ArrayList<>();
+        for (Map.Entry<Product, Integer> entry : cart.entrySet()) {
+            productsInCart.add(entry.getKey());
+        }
+        return productsInCart;
+    }
+
+    public void clearCart() {
+        cart.clear();
+    }
+
 }

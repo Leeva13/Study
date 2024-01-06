@@ -70,9 +70,7 @@ class UserTest {
 
         // Перевірка, чи товар видалено з кошика
         assertFalse(cart.containsKey(product));
+        assertEquals(0, cart.size());
 
-        // Зміна кількості для неіснуючого товару (повинно залишити кошик незмінним)
-        user.modifyCart(product, 3);
-        assertFalse(cart.containsKey(product));
     }
 }

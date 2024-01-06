@@ -31,9 +31,21 @@ public class ECommercePlatform {
     public void createOrder(Integer userId, Map<Product, Integer> orderDetails) {
         User user = users.get(userId);
         if (user != null) {
+            if (orderDetails.isEmpty()) {
+                System.out.println("Замовлення не містить товарів.");
+                return;
+            }
+
+            // Перевірка наявності товарів у кошику користувача
+            if (!user.getCart().entrySet().containsAll(orderDetails.entrySet())) {
+                System.out.println("Неможливо створити замовлення. Деякі товари відсутні в кошику користувача.");
+                return;
+            }
+
             Order order = new Order(generateOrderId(), userId, orderDetails);
             orders.put(order.getId(), order);
             updateProductStocks(orderDetails);
+            user.clearCart();
         } else {
             System.out.println("Користувача з ID " + userId + " не знайдено.");
         }
@@ -57,10 +69,12 @@ public class ECommercePlatform {
             Product product = entry.getKey();
             int quantity = entry.getValue();
             int currentStock = product.getStock();
+
+            // Перевірка, чи є достатньо товару на складі
             if (currentStock >= quantity) {
                 product.setStock(currentStock - quantity);
             } else {
-                System.out.println("Недостатньо товару \"" + product.getName() + "\" на складі.");
+                throw new IllegalArgumentException("Недостатньо товару \"" + product.getName() + "\" на складі.");
             }
         }
     }
