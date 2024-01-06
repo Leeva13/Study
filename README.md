@@ -1,5 +1,9 @@
 This Java project consists of two classes: Decoder and Main.
 
+Updated: 
+Added a message output when decryption fails.
+The findPreviousConsonant method has been optimized.
+
 In the Decoder class:
 
 The decodeWord method takes an encoded word as input and determines whether it contains numbers using regular expressions.
@@ -12,3 +16,5 @@ Splits the encoded message into individual words.
 Uses the Decoder class to decode each word, considering whether it needs vowel or consonant replacement.
 Prints the original encoded message and the decoded message word by word.
 In summary, the project decodes an encoded message by replacing vowels or consonants based on certain rules and then prints the original and decoded messages.
+
+
