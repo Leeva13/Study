@@ -60,7 +60,7 @@ class CinemaTest {
         int hallNumber = 0;
         int numSeatsToFind = 4;
 
-        List<Integer> bestSeats = cinema.findBestAvailable(hallNumber, 4, 7, numSeatsToFind);
+        List<Integer> bestSeats = cinema.findBestAvailable(hallNumber, 4, 8, numSeatsToFind);
 
         Assertions.assertEquals(numSeatsToFind, bestSeats.size());
         for (int seat : bestSeats) {
@@ -75,7 +75,7 @@ class CinemaTest {
 
         cinema.autoBook(hallNumber, numSeatsToAutoBook);
 
-        List<Integer> bestSeats = cinema.findBestAvailable(hallNumber, 4, 7, numSeatsToAutoBook);
+        List<Integer> bestSeats = cinema.findBestAvailable(hallNumber, 4, 8, numSeatsToAutoBook);
         Assertions.assertEquals(numSeatsToAutoBook, bestSeats.size());
 
         for (int seat : bestSeats) {

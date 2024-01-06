@@ -76,13 +76,34 @@ public class Cinema {
     // Друк схеми розміщення місць для заданого залу
     public void printSeatingArrangement(int hallNumber) {
         System.out.println("Схема розміщення місць для залу " + hallNumber + ":");
-        for (int row = 0; row < NUM_ROWS; row++) {
-            for (int seat = 0; seat < NUM_SEATS_PER_ROW; seat++) {
-                System.out.print(seatingArrangement[hallNumber][row][seat] + " ");
-            }
-            System.out.println();
+
+        // Вивід верхньої нумерації для стовпців
+        System.out.print("    ");
+        for (int seat = 1; seat <= NUM_SEATS_PER_ROW; seat++) {
+            System.out.print(seat < 10 ? " " + seat + " " : seat + " ");
         }
+        System.out.println();
+
+        for (int row = 0; row < NUM_ROWS; row++) {
+            // Вивід нумерації для рядків зліва
+            System.out.print( (row + 1) < 10 ? " " + (row + 1) + " | " : (row + 1) + " | ");
+
+            for (int seat = 0; seat < NUM_SEATS_PER_ROW; seat++) {
+                System.out.print(seatingArrangement[hallNumber][row][seat] + "  ");
+            }
+
+            // Вивід нумерації для рядків справа
+            System.out.println("| " + (row + 1));
+        }
+
+        // Вивід нумерації для стовпців знизу
+        System.out.print("    ");
+        for (int seat = 1; seat <= NUM_SEATS_PER_ROW; seat++) {
+            System.out.print(seat < 10 ? " " + seat + " " : seat + " ");
+        }
+        System.out.println();
     }
+
 
     // Метод для знаходження найкращих доступних послідовних місць
     public List<Integer> findBestAvailable(int hallNumber, int startRow, int startColumn, int numSeats) {
@@ -114,7 +135,7 @@ public class Cinema {
 
     // Метод для автоматичного бронювання найкращих доступних послідовних місць
     public void autoBook(int hallNumber, int numSeats) {
-        List<Integer> bestSeats = findBestAvailable(hallNumber, 4, 7, numSeats);
+        List<Integer> bestSeats = findBestAvailable(hallNumber, 4, 8, numSeats);
         if (bestSeats.isEmpty()) {
             System.out.println("Немає достатньо вільних послідовних місць для бронювання " + numSeats + " місць у залі " + hallNumber + ".");
         } else {
