@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введіть закодоване повідомлення:");
@@ -14,8 +15,9 @@ public class Main {
         System.out.println("Закодоване повідомлення: " + encodedMessage);
         System.out.println("Розкодоване повідомлення:");
 
+        String decodedWord;
         for (String word : words) {
-            String decodedWord = Decoder.decodeWord(word);
+            decodedWord = Decoder.decodeWord(word);
             System.out.print(decodedWord + " ");
         }
     }

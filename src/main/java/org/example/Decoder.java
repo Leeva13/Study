@@ -39,14 +39,14 @@ public class Decoder {
     }
 
     private static char findPreviousConsonant(char currentConsonant) {
-        char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        int index = new String(alphabet).indexOf(currentConsonant);
+        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int index = alphabet.indexOf(currentConsonant);
 
         if (index == -1) {
             return currentConsonant;
         }
 
-        int previousIndex = (index - 1 + alphabet.length) % alphabet.length;
-        return alphabet[previousIndex];
+        int previousIndex = (index - 1 + alphabet.length()) % alphabet.length();
+        return alphabet.charAt(previousIndex);
     }
 }
