@@ -1,11 +1,17 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 public class ECommercePlatform {
     private final Map<Integer, User> users;
     private final Map<Integer, Product> products;
     private final Map<Integer, Order> orders;
+
+
+    private static final ECommercePlatform platform = new ECommercePlatform();
 
     public ECommercePlatform() {
         this.users = new HashMap<>();
@@ -57,6 +63,13 @@ public class ECommercePlatform {
                 System.out.println("Недостатньо товару \"" + product.getName() + "\" на складі.");
             }
         }
+    }
+
+    public void recommendProductsBasedOnCart(User user) {
+        System.out.println("\nРекомендовані товари для користувача " + user.getUsername() + ":");
+        List<Product> recommendedProducts = new ArrayList<>(platform.getAvailableProducts().values());
+        recommendedProducts.removeAll(user.getProductsInCart());
+        recommendedProducts.forEach(System.out::println);
     }
 
     // Метод для генерації унікального ID для замовлення
