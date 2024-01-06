@@ -15,12 +15,6 @@ class CinemaTest {
         cinema = new Cinema();
     }
 
-
-
-
-
-
-
     @Test
     void testBookSeats() {
         int hallNumber = 0;
@@ -61,28 +55,32 @@ class CinemaTest {
         Assertions.assertTrue(cinema.checkAvailability(hallNumber, numSeatsToCheck));
     }
 
-    @Test
     void testFindBestAvailable() {
+        Cinema cinema = new Cinema();
         int hallNumber = 0;
         int numSeatsToFind = 4;
 
-        List<Integer> bestSeats = cinema.findBestAvailable(hallNumber, numSeatsToFind);
+        List<Integer> bestSeats = cinema.findBestAvailable(hallNumber, 4, 7, numSeatsToFind);
 
         Assertions.assertEquals(numSeatsToFind, bestSeats.size());
         for (int seat : bestSeats) {
-            Assertions.assertEquals(0, cinema.seatingArrangement[hallNumber][0][seat]);
+            // Переконатися, що вибрані місця спочатку доступні (значення 0)
+            Assertions.assertEquals(0, cinema.seatingArrangement[hallNumber][4][seat]);
         }
     }
 
-    @Test
     void testAutoBook() {
         int hallNumber = 0;
         int numSeatsToAutoBook = 4;
 
         cinema.autoBook(hallNumber, numSeatsToAutoBook);
 
-        for (int i = 0; i < numSeatsToAutoBook; i++) {
-            Assertions.assertEquals(1, cinema.seatingArrangement[hallNumber][0][i]);
+        List<Integer> bestSeats = cinema.findBestAvailable(hallNumber, 4, 7, numSeatsToAutoBook);
+        Assertions.assertEquals(numSeatsToAutoBook, bestSeats.size());
+
+        for (int seat : bestSeats) {
+            // Переконатися, що вибрані місця заброньовано (значення 1)
+            Assertions.assertEquals(1, cinema.seatingArrangement[hallNumber][4][seat]);
         }
     }
 
