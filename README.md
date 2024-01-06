@@ -16,5 +16,6 @@ Updated Labs:
 [Лабораторна Робота 6](https://github.com/Leeva13/Study/tree/Lab_6)     - Updated table printing, added numbering                                                                                          
 [Лабораторна Робота 7](https://github.com/Leeva13/Study/tree/Lab_7)     - Calculated different cases, changed the sorting logic, and added more demonstrations of interaction with the system
 [Лабораторна Робота 9](https://github.com/Leeva13/Study/tree/Lab_9)     - Replaced the API with a working one, optimized the code, improved readability                
+                                                                                                                                                                             
 (Don't forget to change the path to create the file)
 
