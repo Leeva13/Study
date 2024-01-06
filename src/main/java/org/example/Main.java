@@ -6,7 +6,7 @@ public class Main {
 
         int hallNumber = 0;
         int row = 2;
-        int[] seatsToBook = {3, 4, 5};
+        int[] seatsToBook = {6, 7, 8, 9};
 
         cinema.bookSeats(hallNumber, row, seatsToBook);
         cinema.printSeatingArrangement(hallNumber);

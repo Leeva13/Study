@@ -85,13 +85,13 @@ public class Cinema {
     }
 
     // Метод для знаходження найкращих доступних послідовних місць
-    public List<Integer> findBestAvailable(int hallNumber, int numSeats) {
+    public List<Integer> findBestAvailable(int hallNumber, int startRow, int startColumn, int numSeats) {
         List<Integer> bestSeats = new ArrayList<>();
         int currentConsecutiveSeats = 0;
         int startSeatIndex = -1;
 
-        for (int row = 0; row < NUM_ROWS; row++) {
-            for (int seat = 0; seat < NUM_SEATS_PER_ROW; seat++) {
+        for (int row = startRow; row < NUM_ROWS; row++) {
+            for (int seat = (row == startRow) ? startColumn : 0; seat < NUM_SEATS_PER_ROW; seat++) {
                 if (seatingArrangement[hallNumber][row][seat] == 0) {
                     if (currentConsecutiveSeats == 0) {
                         startSeatIndex = seat;
@@ -114,7 +114,7 @@ public class Cinema {
 
     // Метод для автоматичного бронювання найкращих доступних послідовних місць
     public void autoBook(int hallNumber, int numSeats) {
-        List<Integer> bestSeats = findBestAvailable(hallNumber, numSeats);
+        List<Integer> bestSeats = findBestAvailable(hallNumber, 4, 7, numSeats);
         if (bestSeats.isEmpty()) {
             System.out.println("Немає достатньо вільних послідовних місць для бронювання " + numSeats + " місць у залі " + hallNumber + ".");
         } else {
@@ -122,7 +122,7 @@ public class Cinema {
             for (int i = 0; i < bestSeats.size(); i++) {
                 seatsArray[i] = bestSeats.get(i);
             }
-            bookSeats(hallNumber, 0, seatsArray); // Бронювання з першого ряду (можна змінити за потребою)
+            bookSeats(hallNumber, 4, seatsArray); // Бронювання з першого ряду (можна змінити за потребою)
             System.out.println("Автоматичне бронювання " + numSeats + " місць у залі " + hallNumber + " успішно виконано.");
         }
     }
