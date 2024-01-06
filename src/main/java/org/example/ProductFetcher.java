@@ -12,27 +12,33 @@ import java.util.List;
 
 public class ProductFetcher {
 
-    private static final String API_ENDPOINT = "https://api.escuelajs.co/api/v1/products";
-    private static final String API_KEY = "43a0cef4dd3b4c818a5328154582ef5d";
+    private static final String API_ENDPOINT = "https://fakestoreapi.com/products";
 
     public List<Product> fetchProducts() throws IOException {
         URL url = new URL(API_ENDPOINT);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Bearer " + API_KEY);
 
-        try (var reader = connection.getInputStream()) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            JsonNode jsonNode = objectMapper.readTree(reader);
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            try (var reader = connection.getInputStream()) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                JsonNode jsonArray = objectMapper.readTree(reader);
 
-            List<Product> products = new ArrayList<>();
+                List<Product> products = new ArrayList<>();
 
-            for (JsonNode productNode : jsonNode) {
-                Product product = objectMapper.treeToValue(productNode, Product.class);
-                products.add(product);
+
+                if (jsonArray.isArray()) {
+                    for (JsonNode productNode : jsonArray) {
+                        Product product = objectMapper.treeToValue(productNode, Product.class);
+                        products.add(product);
+                    }
+                }
+
+                return products;
             }
-            return products;
+        } else {
+            throw new IOException("Failed to fetch products. HTTP error code: " + connection.getResponseCode());
         }
     }
 }

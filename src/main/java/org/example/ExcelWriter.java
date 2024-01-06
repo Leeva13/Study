@@ -43,6 +43,7 @@ public class ExcelWriter {
             ProductFetcher productFetcher = new ProductFetcher();
             List<Product> products = productFetcher.fetchProducts();
 
+            // Тут вказуєте свій шлях до місця збереження файлу
             String filePath = "C:\\My PC\\products.xlsx";
             ExcelWriter.writeProductsToExcel(products, filePath);
 
